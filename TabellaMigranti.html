@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        
+        <input type="file" onchange="leggiFile(this)">
+        <div id="tabella-container"></div> 
+        <script>
+            function leggiFile(input) {
+    let file = input.files[0]; 
+    let lettoreF = new FileReader(); 
+    lettoreF.readAsText(file); 
+
+    lettoreF.onload = function() {
+        let contenuto = lettoreF.result; 
+        creaTabella(contenuto); 
+    }
+}
+
+function creaTabella(contenuto) {
+    let righe = contenuto.split("\n"); 
+    let tabella = "<table border='1'>"; 
+
+    
+    for (let i = 0; i < righe.length; i++) {
+        let celle = righe[i].split(","); 
+
+        if (celle.length > 1) { 
+            tabella += "<tr>"; 
+
+            
+            for (let j = 0; j < celle.length; j++) {
+                tabella += "<td>" + celle[j].trim() + "</td>"; 
+            }
+
+            tabella += "</tr>"; 
+        }
+    }
+
+    tabella += "</table>";
+    document.getElementById("tabella-container").innerHTML = tabella; 
+}
+        </script>
+    </head>
+</html>
+
