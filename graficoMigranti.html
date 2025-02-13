@@ -1,0 +1,139 @@
+
+<!DOCTYPE html>
+<html lang="it">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Tabella e Grafico Migranti</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 15px;
+                background-color: #f4f4f9;
+                text-align: center;
+            }
+            h1 {
+                color: #4ca8af;
+            }
+            #contenitore {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+            table {
+                border-collapse: collapse;
+                width: 50%;
+                max-width: 400px;
+                background-color: #fff;
+                box-shadow: 0 4px 8px rgba(0, 0, 0,);
+            }
+            th, td {
+                padding: 10px;
+                text-align: center;
+                border: 1px solid #ddd;
+            }
+            th {
+                background-color: #4ca8af;
+                color: white;
+            }
+            canvas {
+                border: 1px solid black;
+                background-color: white;
+            }
+            input[type="file"] {
+                padding: 10px;
+                border: 2px solid #ccc;
+                border-radius: 5px;
+                background-color: #fff;
+                cursor: pointer;
+                font-size: 14px;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Tabella e Grafico Migranti</h1>
+        <div id="contenitore">
+            <input type="file" onchange="leggiFile(this)">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Anno</th>
+                        <th>Numero Sbarchi</th>
+                    </tr>
+                </thead>
+                <tbody id="tabella"></tbody>
+            </table>
+            <canvas id="grafico" width="800" height="400"></canvas>
+        </div>
+        
+        <script>
+            function leggiFile(input) {
+                const file = input.files[0];
+                const lettore = new FileReader();
+                lettore.readAsText(file);
+                lettore.onload = function() {
+                    const contenuto = lettore.result;
+                    aggiornaTabella(contenuto);
+                    disegnaGrafico(contenuto);
+                };
+            }
+
+            function aggiornaTabella(contenuto) {
+                const righe = contenuto.split('\n').slice(1);
+                let html = '';
+                for (let riga of righe) {
+                    let dati = riga.split(',');
+                    if (dati.length === 2) {
+                        html += `<tr><td>${dati[0].replaceAll('"', '')}</td><td>${dati[1].replaceAll('"', '')}</td></tr>`;
+                    }
+                }
+                document.getElementById("tabella").innerHTML = html;
+            }
+
+            function disegnaGrafico(contenuto) {
+                const canvas = document.getElementById('grafico');
+                const contesto = canvas.getContext('2d');
+                contesto.clearRect(0, 0, canvas.width, canvas.height);
+
+                const righe = contenuto.split('\n').slice(1);
+                let anni = [], sbarchi = [];
+                for (let riga of righe) {
+                    let dati = riga.split(',');
+                    if (dati.length === 2) {
+                        anni.push(dati[0].replaceAll('"', ''));
+                        sbarchi.push(parseInt(dati[1].replaceAll('"', '')));
+                    }
+                }
+                
+                const maxSbarchi = Math.max(...sbarchi);
+                const scalaX = (canvas.width - 100) / anni.length;
+                const scalaY = (canvas.height - 100) / maxSbarchi;
+
+                contesto.beginPath();
+                contesto.moveTo(50, 50);
+                contesto.lineTo(50, canvas.height - 50);
+                contesto.lineTo(canvas.width - 50, canvas.height - 50);
+                contesto.stroke();
+                
+                contesto.font = '12px Arial';
+                contesto.textAlign = 'center';
+                for (let i = 0; i < anni.length; i++) {
+                    contesto.fillText(anni[i], 50 + i * scalaX + scalaX / 2, canvas.height - 30);
+                }
+
+                contesto.textAlign = 'right';
+                for (let i = 0; i <= 5; i++) {
+                    contesto.fillText(Math.round(i * maxSbarchi / 5), 45, canvas.height - 50 - i * (canvas.height - 100) / 5);
+                }
+                
+                contesto.beginPath();
+                contesto.moveTo(50, canvas.height - 50 - sbarchi[0] * scalaY);
+                for (let i = 1; i < anni.length; i++) {
+                    contesto.lineTo(50 + i * scalaX, canvas.height - 50 - sbarchi[i] * scalaY);
+                }
+                contesto.stroke();
+            }
+        </script>
+    </body>
+</html>
