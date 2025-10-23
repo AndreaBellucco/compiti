@@ -16,7 +16,7 @@ function LetturaFile()
 
 let xhr = new XMLHttpRequest();
 
-xhr.open("GET", "http://localhost/archivio.txt",true); //si definisce l'apertura di un file di testo presente nell'host in locale
+xhr.open("GET", "/archivio.txt",true); //si definisce l'apertura di un file di testo presente nell'host in locale
 xhr.send(); // si invia la richiesta al server
 
  xhr.onload = function() {
@@ -38,7 +38,7 @@ function StampaMaggiorenni()
 {
 let xhr = new XMLHttpRequest();
 
-xhr.open("GET", "http://localhost/archivio.txt",true);
+xhr.open("GET", "/archivio.txt",true);
 xhr.send();
 
  xhr.onload = function() {
@@ -59,7 +59,7 @@ function StampaGenerazione()
 {
 let xhr = new XMLHttpRequest();
 
-xhr.open("GET", "http://localhost/archivio.txt",true);
+xhr.open("GET", "/archivio.txt",true);
 xhr.send(); 
 
  xhr.onload = function() {
@@ -108,7 +108,7 @@ function CercaCognomi()
 {
 let xhr = new XMLHttpRequest();
 
-xhr.open("GET", "http://localhost/archivio.txt",true);
+xhr.open("GET", "/archivio.txt",true);
 xhr.send(); 
 
  xhr.onload = function() {
