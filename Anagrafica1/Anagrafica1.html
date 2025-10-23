@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>Prelevare e leggere un file di testo contenente un vettore di oggetti rappresentanti persone formattato con la notazione JSON </h2>
+
+<TABLE id="t1">
+<input id="b1" type="button" onclick="LetturaFile();" value="leggi i dati dal file">
+<input id="b2" type="button" onclick="StampaMaggiorenni();" value="stampa il cognome dei maggiorenni">
+<input id="b3" type="button" onclick="StampaGenerazione();" value="stampa la generazione">
+<input id="b4" type="text" placeholder="Inserisci lettera per ricerca cognomi" id="cerca">
+<input id="b5" type="button" onclick="CercaCognomi();" value="Cerca Cognomi">
+<script>
+function LetturaFile()
+{
+
+let xhr = new XMLHttpRequest();
+
+xhr.open("GET", "http://localhost/archivio.txt",true); //si definisce l'apertura di un file di testo presente nell'host in locale
+xhr.send(); // si invia la richiesta al server
+
+ xhr.onload = function() {
+const oggetto = JSON.parse(xhr.responseText); // si crea un oggetto che è un vettore  di persone
+
+str="<tr><th> Nome </th> <th> Cognome </th> <th>Anni</th>";
+
+for(i=0;i<oggetto.archivio.length; i++) // si genera dinamicamente una taella in cui si inseriscono tutti dati presenti nel vettore di oggetti  
+{
+str = str+"<tr><td>"+oggetto.archivio[i].nome +"</td><td>"+oggetto.archivio[i].cognome + "</td><td>"+ oggetto.archivio[i].anni + "</td></tr>" ;
+
+}
+str = str+"</TABLE>";
+document.getElementById("t1").innerHTML = str;
+}
+}
+
+function StampaMaggiorenni()
+{
+let xhr = new XMLHttpRequest();
+
+xhr.open("GET", "http://localhost/archivio.txt",true);
+xhr.send();
+
+ xhr.onload = function() {
+const oggetto = JSON.parse(xhr.responseText);
+str="Cognomi dei maggiorenni: <br>";
+for(i=0;i<oggetto.archivio.length; i++)
+{
+    if(oggetto.archivio[i].anni >=18)
+    {
+        str = str + oggetto.archivio[i].cognome + "<br>";
+    }
+}
+document.getElementById("t1").innerHTML = str;
+}
+}
+
+function StampaGenerazione()
+{
+let xhr = new XMLHttpRequest();
+
+xhr.open("GET", "http://localhost/archivio.txt",true);
+xhr.send(); 
+
+ xhr.onload = function() {
+const oggetto = JSON.parse(xhr.responseText);
+
+str="<tr><th> Nome </th> <th> Cognome </th> <th>Anni</th> <th> Generazione </th>";
+
+for(i=0;i<oggetto.archivio.length; i++)   
+{
+str = str+"<tr><td>"+oggetto.archivio[i].nome +"</td><td>"+oggetto.archivio[i].cognome + "</td><td>"+ oggetto.archivio[i].anni + "</td>";
+if(2025 - oggetto.archivio[i].anni <= 1927)
+{
+    str = str + "<td> Greatest Generation </td></tr>";
+}
+else if(2025 - oggetto.archivio[i].anni >= 1928 && 2025 - oggetto.archivio[i].anni <= 1945)
+{  
+    str = str + "<td> Silent Generation </td></tr>";
+}
+else if(2025 - oggetto.archivio[i].anni >= 1946 && 2025 - oggetto.archivio[i].anni <= 1964)
+{
+    str = str + "<td> Baby Boomers </td></tr>";
+}
+else if(2025 - oggetto.archivio[i].anni >= 1965 && 2025 - oggetto.archivio[i].anni <= 1980)
+{
+    str = str + "<td> Generazione X </td></tr>";
+}
+else if(2025 - oggetto.archivio[i].anni >= 1981 && 2025 - oggetto.archivio[i].anni <= 1996)
+{
+    str = str + "<td> Millennials </td></tr>";
+}
+else if (2025 - oggetto.archivio[i].anni >= 1997 && 2025 - oggetto.archivio[i].anni <= 2012)
+{
+    str = str + "<td> Generazione Z </td></tr>";
+}
+else
+{
+    str = str + "<td> Generazione Alpha </td></tr>";
+}
+
+}
+str = str+"</TABLE>";
+document.getElementById("t1").innerHTML = str;
+}
+}
+function CercaCognomi()
+{
+let xhr = new XMLHttpRequest();
+
+xhr.open("GET", "http://localhost/archivio.txt",true);
+xhr.send(); 
+
+ xhr.onload = function() {
+const oggetto = JSON.parse(xhr.responseText);
+
+str="<tr><th> Nome </th> <th> Cognome </th> <th>Anni</th>";
+let ricerca = document.getElementById("cerca").value.toUpperCase();
+for(i=0;i<oggetto.archivio.length; i++)   
+{
+    let cognome = oggetto.archivio[i].cognome.toUpperCase();
+    if(cognome.startsWith(ricerca))
+    {
+        str = str+"<tr><td>"+oggetto.archivio[i].nome +"</td><td>"+oggetto.archivio[i].cognome + "</td><td>"+ oggetto.archivio[i].anni + "</td></tr>" ;
+    }
+}
+}
+}
+
+
+
+</script>
+
+</body>
+</html>

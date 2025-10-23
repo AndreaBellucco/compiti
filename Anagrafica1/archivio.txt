@@ -1,0 +1,105 @@
+{
+"archivio":
+[
+{
+    "nome":"Andrea",
+    "cognome":"Bellucco",
+    "anni":15
+},
+{
+    "nome":"Matteo",
+    "cognome":"Caenazzo",
+    "anni":32
+},
+{
+    "nome":"Riccardo",
+    "cognome":"Dal Bello",
+    "anni":57
+},
+{
+    "nome":"Francesco",
+    "cognome":"Follatello",
+    "anni":66
+},
+{
+    "nome":"Davide",
+    "cognome":"Gostoli",
+    "anni":22
+},
+{
+    "nome":"Marco",
+    "cognome":"Imboldi",
+    "anni":14
+},
+{
+    "nome":"Daniele",
+    "cognome":"Kim",
+    "anni":30
+},
+{
+    "nome":"Simone",
+    "cognome":"Kristo",
+    "anni":44
+},
+{
+    "nome":"Cristian",
+    "cognome":"Luongo",
+    "anni":12
+},
+{
+    "nome":"Oscar",
+    "cognome":"Martella",
+    "anni":45
+},
+{
+    "nome":"Samuele",
+    "cognome":"Max",
+    "anni":19
+},
+{
+    "nome":"Stefano",
+    "cognome":"Merigo",
+    "anni":9
+},
+{
+    "nome":"Filippo",
+    "cognome":"Monteverdi",
+    "anni":63
+},
+{
+    "nome":"Marco",
+    "cognome":"Moroni",
+    "anni":35
+},
+{
+    "nome":"Davide",
+    "cognome":"Piaggi",
+    "anni":58
+},
+{
+    "nome":"Tamer",
+    "cognome":"Qaddura",
+    "anni":73
+},
+{
+    "nome":"Alessandro",
+    "cognome":"Re",
+    "anni":17
+},
+{
+    "nome":"Matteo",
+    "cognome":"Rubino",
+    "anni":49
+},
+{
+    "nome":"Giuseppe",
+    "cognome":"Vaccaro",
+    "anni":66
+},
+{
+    "nome":"Francesco",
+    "cognome":"Vivaldo",
+    "anni": 20
+}
+]
+}
