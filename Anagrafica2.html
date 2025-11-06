@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+
+
+  <h2>Prelievo e lettura di un file xml </h2>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      background-color: #f9f9f9;
+    }
+
+    h2 {
+      color: #333;
+      text-align: center;
+    }
+
+    input[type="button"] {
+      display: block;
+      margin: 20px auto;
+      padding: 10px 20px;
+      background-color: #bfc3c8;
+      color: rgb(0, 0, 0);
+      border: none;
+      border-radius: 10px;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    input[type="button"]:hover {
+      background-color: #aed5ff;
+    }
+
+    table {
+      width: 80%;
+      margin: 20px auto;
+      border-collapse: collapse;
+      background-color: #fff;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    th,
+    td {
+      padding: 12px 15px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #4fa1f9;
+      color: rgb(0, 0, 0);
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    #filter-container {
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    #letter {
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+      width: 200px;
+      text-align: center;
+    }
+
+    #p6 {
+      margin-top: 30px;
+      text-align: center;
+      font-style: italic;
+      color: #555;
+    }
+  </style>
+
+  <input id="b1" type="button" onclick="LetturaFile()" value="Stampa Tab">
+  <table id="t1">
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Cognome</th>
+        <th>Anni</th>
+        <th>Generazione</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+  <br><br>
+
+
+  <div>
+    <label>Lettera per filtrare i cognomi:</label>
+    <input id="letter" type="text" placeholder="Lettera-cognome">
+    <input id="bott" type="button" onclick="LetturaCognome()" value="Filtra Cognomi">
+  </div>
+  <br><br>
+  <table id="t2">
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Cognome</th>
+        <th>Anni</th>
+        <th>Generazione</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+  <p id="p6"></p>
+  <script>
+  function LetturaCognome() {
+    let leggi = new XMLHttpRequest();
+    leggi.open('GET', 'https://andreabellucco.github.io/compiti/dati.xml', true);
+    leggi.send();
+
+    leggi.onload = function () {
+      const xml = leggi.responseXML;
+
+      if (!xml) {
+        document.getElementById("t2").innerHTML = "Errore nel caricamento del file XML.";
+        return;
+      }
+
+      
+      const studenti = xml.getElementsByTagName("Studente");
+      let lettera = document.getElementById("letter").value.toUpperCase();
+
+      
+      let filtrati = [];
+      for (let i = 0; i < studenti.length; i++) {
+        let cognome = studenti[i].getElementsByTagName("cognome")[0].textContent.toUpperCase();
+        if (cognome.startsWith(lettera)) {
+          filtrati.push(cognome);
+        }
+      }
+
+      
+      let stampa = "<h3>Cognomi che iniziano con '" + lettera + "':</h3>";
+      if (filtrati.length > 0) {
+        filtrati.forEach(cognome => stampa += cognome + "<br>");
+      } else {
+        stampa += "Nessun risultato.";
+      }
+
+      document.getElementById("t2").innerHTML = stampa;
+    };
+  }
+
+  function LetturaFile() {
+    let leggi = new XMLHttpRequest();
+    leggi.open('GET', 'https://andreabellucco.github.io/compiti/dati.xml', true);
+    leggi.send();
+
+    leggi.onload = function () {
+      const xml = leggi.responseXML;
+      if (!xml) {
+        document.getElementById("t1").innerHTML = "Errore nel caricamento del file XML.";
+        return;
+      }
+
+      const studenti = xml.getElementsByTagName("Studente");
+      let str = "";
+
+      for (let i = 0; i < studenti.length; i++) {
+        let nome = studenti[i].getElementsByTagName("nome")[0].textContent;
+        let cognome = studenti[i].getElementsByTagName("cognome")[0].textContent;
+        let anno = parseInt(studenti[i].getElementsByTagName("anni")[0].textContent);
+
+        let Generazione = "";
+
+        if (anno >= 1901 && anno <= 1927)
+          Generazione = "Greatest Generation";
+        else if (anno >= 1928 && anno <= 1945)
+          Generazione = "Generazione Silenziosa";
+        else if (anno >= 1946 && anno <= 1964)
+          Generazione = "Generazione Baby Boomers";
+        else if (anno >= 1965 && anno <= 1980)
+          Generazione = "Generazione X";
+        else if (anno >= 1981 && anno <= 1996)
+          Generazione = "Millennials";
+        else if (anno >= 1997 && anno <= 2012)
+          Generazione = "Generazione Z";
+        else if (anno >= 2013)
+          Generazione = "Generazione Alpha";
+        else
+          Generazione = "N/A";
+
+       str = str + "<tr><td>" + nome + "</td><td>" + cognome + "</td><td>" + anno + "</td><td>" + Generazione + "</td><td>" + Maggiorenni + "</td><td></tr>";
+      }
+
+      str += "</table>";
+      document.getElementById("t1").innerHTML = str;
+    };
+  }
+</script>
+
+
+</body>
+
+</html>
