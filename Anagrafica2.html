@@ -154,43 +154,7 @@
       document.getElementById("t1").innerHTML = str;
     };
   }
-   function LetturaCognome() {
-    let leggi = new XMLHttpRequest();
-    leggi.open('GET', 'https://andreabellucco.github.io/compiti/dati.xml', true);
-    leggi.send();
 
-    leggi.onload = function () {
-      const xml = leggi.responseXML;
-
-      if (!xml) {
-        document.getElementById("t2").innerHTML = "Errore nel caricamento del file XML.";
-        return;
-      }
-
-      
-      const studenti = xml.getElementsByTagName("studente");
-      let lettera = document.getElementById("letter").value.toUpperCase();
-
-      
-      let filtrati = [];
-      for (let i = 0; i < studenti.length; i++) {
-        let cognome = studenti[i].getElementsByTagName("cognome")[0].textContent.toUpperCase();
-        if (cognome.startsWith(lettera)) {
-          filtrati.push(cognome);
-        }
-      }
-
-      
-      let stampa = "<h3>Cognomi che iniziano con '" + lettera + "':</h3>";
-      if (filtrati.length > 0) {
-        filtrati.forEach(cognome => stampa += cognome + "<br>");
-      } else {
-        stampa += "Nessun risultato.";
-      }
-
-      document.getElementById("t2").innerHTML = stampa;
-    };
-  }
 </script>
 
 
@@ -198,3 +162,4 @@
 
 
 </html>
+
