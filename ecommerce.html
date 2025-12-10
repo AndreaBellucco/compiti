@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>E-Commerce</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: linear-gradient(to bottom, #dce9f8, #f3f3f3);
+        padding: 40px;
+        margin: 0;
+    }
+
+    .container {
+        max-width: 900px;
+        margin: auto;
+        background: white;
+        padding: 25px;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+        text-align: center;
+        margin-top: 0;
+        color: #2c3e50;
+        letter-spacing: 1px;
+    }
+
+    #buttons {
+        text-align: center;
+        margin: 20px 0;
+    }
+
+    button {
+        padding: 10px 18px;
+        margin: 5px;
+        border: none;
+        background: #db34ca;
+        color: white;
+        border-radius: 25px;
+        font-size: 15px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    button:hover {
+        background: #db34ca;
+        transform: translateY(-2px);
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 15px;
+        overflow: hidden;
+        border-radius: 10px;
+    }
+
+    th {
+        background: #db34ca;
+        color: white;
+        padding: 12px;
+        font-size: 16px;
+        letter-spacing: 0.5px;
+    }
+
+    td {
+        padding: 12px;
+        background: #ffffff;
+        border-bottom: 1px solid #e0e0e0;
+    }
+
+    tr:hover td {
+        background: #eef6ff;
+    }
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>E-Commerce</h1>
+    <h1>Catalogo Prodotti</h1>
+
+    <div id="buttons">
+        <button onclick="leggiXML()">Apri XML</button>
+        <button onclick="leggiJSON()">Apri JSON</button>
+        <button onclick="leggiCSV()">Apri CSV</button>
+        <button onclick="leggiTXT()">Apri TXT</button>
+
+    </div>
+
+    <table id="tabella">
+        <tr>
+            <th>Nome</th>
+            <th>Caratteristiche</th>
+            <th>Prezzo</th>
+            <th></th>
+        </tr>
+    </table>
+
+</div>
+
+<script>
+  function pulisciTabella() {
+            const i = document.getElementById("tabella");
+            if (i == null) return;
+            i.innerHTML = "<tr><th>Nome</th><th>Caratteristiche</th><th>Prezzo</th></tr>";
+        }
+
+function leggiXML() {
+    pulisciTabella();
+
+    let req = new XMLHttpRequest();
+    req.open('GET', 'andreabellucco.github.io/compiti/prodotti.xml', true);
+    req.send();
+
+    req.onload = function () {
+        const xmlDoc = req.responseXML;
+
+        const listaProdotti = xmlDoc.getElementsByTagName("prodotto");
+
+        for (let i = 0; i < listaProdotti.length; i++) {
+            let nomeProd = listaProdotti[i].getElementsByTagName("nome")[0].textContent;
+            let carattProd = listaProdotti[i].getElementsByTagName("caratteristiche")[0].textContent;
+            let prezzoProd = listaProdotti[i].getElementsByTagName("prezzo")[0].textContent;
+
+            aggiungiRiga(nomeProd, carattProd, prezzoProd);
+        }
+    }
+}
+
+
+function leggiJSON() {
+    pulisciTabella();
+
+    let richiesta = new XMLHttpRequest();
+
+    richiesta.open('GET', 'andreabellucco.github.io/compiti/prodotti.json', true);
+    richiesta.send();
+
+    richiesta.onload = function () {
+        const json = JSON.parse(richiesta.responseText);
+
+        for (let i = 0; i < json.length; i++) {
+            let prodotto = json[i];
+            aggiungiRiga(prodotto.nome, prodotto.caratteristiche, prodotto.prezzo);
+        }
+    }
+}
+
+function leggiCSV() {
+
+    pulisciTabella();
+
+    let req = new XMLHttpRequest();
+    req.open('GET', 'andreabellucco.github.io/compiti/prodotti.csv', true);
+    req.send();
+
+    req.onload = function () {
+        let testo = req.responseText.split("\n");
+
+        for (let i = 1; i < testo.length; i++) {
+            let campi = testo[i].split(",");
+            aggiungiRiga(campi[0], campi[1], campi[2]);
+        }
+    }
+}
+
+function leggiTXT() {
+    pulisciTabella();
+
+    let req = new XMLHttpRequest();
+    req.open('GET', 'andreabellucco.github.io/compiti/prodotti.txt', true);
+    req.send();
+
+    req.onload = function () {
+        const righeTxt = req.responseText.split("\n");
+
+        for (let i = 0; i < righeTxt.length; i++) {
+            const campi = righeTxt[i].split(";");
+            aggiungiRiga(campi[0], campi[1], campi[2]);
+        }
+    }
+}
+
+function acquista(nome, prezzo) {
+    alert("Hai acquistato: " + nome + " soltanto al prezzo di " + (" + prezzo + "));
+}
+
+function aggiungiRiga(nome, caratteristiche, prezzo) {
+    const tabella = document.getElementById("tabella");
+
+    tabella.innerHTML +=
+        "<tr><td>" + nome + "</td><td>" + caratteristiche + "</td><td>" + prezzo + "</td></tr>"
+}
+</script>
+
+</body>
+</html>

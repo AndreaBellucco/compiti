@@ -1,0 +1,35 @@
+[
+    {
+      
+        "nome": "Monitor 4K",
+        "caratteristiche": "Schermo ultra-HD da 27 pollici con colori brillanti e alta definizione.",
+        "prezzo": 349.99
+    },
+    {
+      
+        "nome": "Mouse Gaming RGB",
+        "caratteristiche": "Mouse ergonomico con sensore ad alta precisione e illuminazione personalizzabile.",
+        "prezzo": 69.99
+        
+    },
+    {
+     
+        "nome": "Tastiera Meccanica",
+        "caratteristiche": "Tastiera con switch meccanici e retroilluminazione LED per digitazione precisa.",
+        "prezzo": 129.99
+        
+    },
+    {
+   
+        "nome": "Altoparlante Bluetooth",
+        "caratteristiche": "Cassa portatile resistente all’acqua con audio potente e bassi profondi.",
+        "prezzo": 89.99
+        
+    },
+    {
+        "nome": "Webcam Full HD",
+        "caratteristiche": "Webcam a 1080p con microfono integrato, ideale per videolezioni e riunioni.",
+        "prezzo": 49.99
+        
+    }
+]

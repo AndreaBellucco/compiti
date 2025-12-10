@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prodotti>
+    <prodotto>
+        <nome>Drone SkyMaster X</nome>
+        <caratteristiche>Elettronica</caratteristiche>
+        <prezzo>899.99</prezzo>
+        <disponibilita>In stock</disponibilita>
+    </prodotto>
+
+    <prodotto>
+        <nome>Smart Glasses VisionPro</nome>
+        <caratteristiche>Wearable</caratteristiche>
+        <prezzo>499.99</prezzo>
+        <disponibilita>Out of stock</disponibilita>
+    </prodotto>
+
+    <prodotto>
+        <nome>Console GameStation 7</nome>
+        <caratteristiche>Gaming</caratteristiche>
+        <prezzo>699.99</prezzo>
+        <disponibilita>In stock</disponibilita>
+    </prodotto>
+
+    <prodotto>
+        <nome>Keyboard MechaRGB</nome>
+        <caratteristiche>Periferiche Gaming</caratteristiche>
+        <prezzo>159.99</prezzo>
+        <disponibilita>In stock</disponibilita>
+    </prodotto>
+
+    <prodotto>
+        <nome>Speaker Immersive360</nome>
+        <caratteristiche>Audio</caratteristiche>
+        <prezzo>249.99</prezzo>
+        <disponibilita>Out of stock</disponibilita>
+    </prodotto>
+</prodotti>
