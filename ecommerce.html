@@ -117,7 +117,7 @@ function leggiXML() {
     pulisciTabella();
 
     let req = new XMLHttpRequest();
-    req.open('GET', 'andreabellucco.github.io/compiti/prodotti.xml', true);
+    req.open('GET', 'https://andreabellucco.github.io/compiti/prodotti.xml', true);
     req.send();
 
     req.onload = function () {
@@ -141,7 +141,7 @@ function leggiJSON() {
 
     let richiesta = new XMLHttpRequest();
 
-    richiesta.open('GET', 'andreabellucco.github.io/compiti/prodotti.json', true);
+    richiesta.open('GET', 'https://andreabellucco.github.io/compiti/prodotti.json', true);
     richiesta.send();
 
     richiesta.onload = function () {
@@ -159,7 +159,7 @@ function leggiCSV() {
     pulisciTabella();
 
     let req = new XMLHttpRequest();
-    req.open('GET', 'andreabellucco.github.io/compiti/prodotti.csv', true);
+    req.open('GET', 'https://andreabellucco.github.io/compiti/prodotti.csv', true);
     req.send();
 
     req.onload = function () {
@@ -176,7 +176,7 @@ function leggiTXT() {
     pulisciTabella();
 
     let req = new XMLHttpRequest();
-    req.open('GET', 'andreabellucco.github.io/compiti/prodotti.txt', true);
+    req.open('GET', 'https://andreabellucco.github.io/compiti/prodotti.txt', true);
     req.send();
 
     req.onload = function () {
@@ -187,10 +187,6 @@ function leggiTXT() {
             aggiungiRiga(campi[0], campi[1], campi[2]);
         }
     }
-}
-
-function acquista(nome, prezzo) {
-    alert("Hai acquistato: " + nome + " soltanto al prezzo di " + (" + prezzo + "));
 }
 
 function aggiungiRiga(nome, caratteristiche, prezzo) {
